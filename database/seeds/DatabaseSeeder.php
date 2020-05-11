@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
+use App\Delivery;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -11,6 +11,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UserSeeder::class);
+        Delivery::create([
+            'name' => 'Delivery1',
+            'salary' => '1000',
+            'number_of_deliveries' => '10',
+          ]);
+            $this->call(UsersTableSeeder::class);
     }
 }
