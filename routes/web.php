@@ -12,14 +12,21 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
+Auth::routes();
+Route::group(['middleware'=>'auth'],function(){
+    Route::get('/clear-cache', function() {
+        Artisan::call('cache:clear');
+        return redirect()->route('home');
+    }); 
 });
+Route::get('/', 'HomeController@index');
+Route::get('/home', 'HomeController@index')->name('home');
+
+
 Route::get('/try', function () {
     return view('try');
 });
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+
