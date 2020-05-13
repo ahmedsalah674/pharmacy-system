@@ -19,9 +19,11 @@ Route::group(['middleware'=>'auth'],function(){
         return redirect()->route('home');
     }); 
 });
+//home routes
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
-
+//profile routes
+Route::get('profile/show/{id}','ProfileController\ProfileController@show')->name('profile.show');
 
 Route::get('/try', function () {
     return view('try');
