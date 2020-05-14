@@ -26,13 +26,25 @@ class AppServiceProvider extends ServiceProvider
     {
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
             $event->menu->add(
-                ['header' => 'account_settings'],
                 [
-                    'text' => 'Profile',
-                    'url'  => route('profile.show',\Auth::user()),
-                    'icon' => 'fas fa-user fa-lg mr-1 my-2',
-                    
-                ],
+                'text' => 'account_settings',
+                'icon'    => 'fas fa-user ', 
+                'icon' => 'fas fa-cog fa-spin fa-lg my-2 mr-1 fa-inverse ',
+                'submenu' => 
+                [
+                    [
+                        'text' => 'Profile',
+                        'url'  => route('profile.show',\Auth::user()),
+                        'icon' => 'fas fa-user fa-lg mr-1 my-2',
+                        
+                    ],
+                  [
+                    'text' => 'Edit Profile',
+                    'url'  => route('profile.edit'),
+                    'icon' => 'far fa-edit my-2 ',
+                ], 
+                ]
+              ],
             );//END EVENT->MENU->ADD
         });//END EVENTS->LISTEN
     }

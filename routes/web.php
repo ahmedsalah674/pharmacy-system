@@ -24,6 +24,9 @@ Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 //profile routes
 Route::get('profile/show/{id}','ProfileController\ProfileController@show')->name('profile.show');
+Route::get('/profile/edit','ProfileController\ProfileController@edit')->name('profile.edit');
+Route::put('/profile/update','ProfileController\ProfileController@update')->name('profile.update');
+
 
 Route::get('/try', function () {
     return view('try');

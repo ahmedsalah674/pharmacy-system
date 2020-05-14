@@ -29,6 +29,10 @@
       
       </tbody>
 </table>
-
+@if(\Auth::user()->id == $user->id)
+<div>
+<a href="{!!route('profile.edit')!!}" style="width: 30%" class="btn btn-primary btn-mg " ><i class="fas fa-edit fa-sm"></i> Edit</a>
+</div>
+@endif
 @endsection
 
