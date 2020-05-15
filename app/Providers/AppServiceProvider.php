@@ -26,6 +26,14 @@ class AppServiceProvider extends ServiceProvider
     {
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
             $event->menu->add(
+                ['header'=>'HOME PAGE'],
+                [
+                    'text' => 'Home',
+                    'url'  => 'home',
+                    'icon' => 'fas fa-fw fa-home fa-lg fa-inverse',
+                    
+                ],
+                ['header'=>'account_settings'],
                 [
                 'text' => 'account_settings',
                 'icon'    => 'fas fa-user ', 
@@ -42,6 +50,11 @@ class AppServiceProvider extends ServiceProvider
                     'text' => 'Edit Profile',
                     'url'  => route('profile.edit'),
                     'icon' => 'far fa-edit my-2 ',
+                ], 
+                [
+                    'text' => 'Change Password',
+                    'url'  => route('profile.change.password'),
+                    'icon' => 'fas fa-fw fa-lock my-2',
                 ], 
                 ]
               ],

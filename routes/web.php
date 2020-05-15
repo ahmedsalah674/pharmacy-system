@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
+Auth::routes(['register'=>false]);
 Route::group(['middleware'=>'auth'],function(){
     Route::get('/clear-cache', function() {
         Artisan::call('cache:clear');
@@ -26,7 +26,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('profile/show/{id}','ProfileController\ProfileController@show')->name('profile.show');
 Route::get('/profile/edit','ProfileController\ProfileController@edit')->name('profile.edit');
 Route::put('/profile/update','ProfileController\ProfileController@update')->name('profile.update');
-
+Route::get('/profile/password/change','ProfileController\ProfileController@changepassword')->name('profile.change.password');
+Route::put('/profile/password/change','ProfileController\ProfileController@change')->name('profile.change');
 
 Route::get('/try', function () {
     return view('try');

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\ProfileController;
 
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
@@ -56,4 +58,32 @@ class ProfileController extends Controller
     }
      return redirect()->route('profile.show',\Auth::user()->id)->with('message','your profile Updated Successfully');
     }
+
+    
+    public function changepassword()
+    {
+      return view('profile.change_password');
+    }
+    public function change(Request $request)
+    {
+      $this->validate($request,[
+        'password' => 'required',
+        ]);
+      $user=user::find($request->id);
+      if(Hash::check($request->password,$user->password))
+      {
+        $this->validate($request,[
+          'password' => 'required|min:3',
+          'new_password' => 'required|min:8',
+          'confirm_password' =>'required|min:8|same:new_password',
+          ]);
+      $user->update(['password'=>Hash::make($request->newpassword)]);
+      return redirect()->route('home')->with('message','Your Password Updated');
+      }
+      else
+      {
+        return redirect()->route('profile.change.password')->with('error','Old Password Wrong ');
+      }
+    }
+    
 }

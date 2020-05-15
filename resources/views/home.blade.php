@@ -7,6 +7,7 @@
 @php ($userrole='Customer')
 @endif
 @section('content')
+@include('error')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
