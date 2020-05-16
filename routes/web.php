@@ -29,6 +29,10 @@ Route::put('/profile/update','ProfileController\ProfileController@update')->name
 Route::get('/profile/password/change','ProfileController\ProfileController@changepassword')->name('profile.change.password');
 Route::put('/profile/password/change','ProfileController\ProfileController@change')->name('profile.change');
 
+//product (item) routes
+
+Route::get('/product/create','ProductController\ProductController@create')->name('product.create');
+Route::post('/product/store','ProductController\ProductController@store')->name('product.store');
 Route::get('/try', function () {
     return view('try');
 });
