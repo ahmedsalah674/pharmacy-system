@@ -20,7 +20,7 @@ Route::group(['middleware'=>'auth'],function(){
     }); 
 });
 //home routes
-Route::get('/', 'HomeController@index');
+Route::get('/',function(){return redirect()->route('home');});
 Route::get('/home', 'HomeController@index')->name('home');
 //profile routes
 Route::get('profile/show/{id}','ProfileController\ProfileController@show')->name('profile.show');
@@ -33,6 +33,8 @@ Route::put('/profile/password/change','ProfileController\ProfileController@chang
 
 Route::get('/product/create','ProductController\ProductController@create')->name('product.create');
 Route::post('/product/store','ProductController\ProductController@store')->name('product.store');
+Route::get('/product/show/{id}','ProductController\ProductController@show')->name('product.show');
+
 Route::get('/try', function () {
     return view('try');
 });

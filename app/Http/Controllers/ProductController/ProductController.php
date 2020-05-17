@@ -34,4 +34,12 @@ class ProductController extends Controller
         ]);
         return redirect()->route('home')->with('message','Product has been added');
     }
+    public function show($id)
+    {
+      $product = Item::find($id);
+      if(!$product)
+        abort(404);
+      else
+        return view('products.show',compact('product'));
+    }
 }
