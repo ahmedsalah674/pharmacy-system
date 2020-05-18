@@ -12,13 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes(['register'=>false]);
-Route::group(['middleware'=>'auth'],function(){
-    Route::get('/clear-cache', function() {
-        Artisan::call('cache:clear');
-        return redirect()->route('home');
-    }); 
-});
+Auth::routes();
 //home routes
 Route::get('/',function(){return redirect()->route('home');});
 Route::get('/home', 'HomeController@index')->name('home');
@@ -34,6 +28,8 @@ Route::put('/profile/password/change','ProfileController\ProfileController@chang
 Route::get('/product/create','ProductController\ProductController@create')->name('product.create');
 Route::post('/product/store','ProductController\ProductController@store')->name('product.store');
 Route::get('/product/show/{id}','ProductController\ProductController@show')->name('product.show');
+Route::get('/product/all','ProductController\ProductController@index')->name('product.all');
+
 
 Route::get('/try', function () {
     return view('try');

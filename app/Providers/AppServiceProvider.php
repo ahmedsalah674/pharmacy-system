@@ -70,7 +70,12 @@ class AppServiceProvider extends ServiceProvider
                             'icon'    => 'fab fa-product-hunt fa-lg my-2 mr-1 fa-inverse',
                             'submenu' => 
                             [
-                              
+                                [
+                                    'text' => 'All Products',
+                                    'url' => route('product.all'),
+                                    'icon' => 'fas fa-list my-2 mr-1',
+                                    // 'icon_color' => 'blue',
+                                  ],
                               [
                                 'text' => 'Add Products',
                                 'url' => route('product.create'),

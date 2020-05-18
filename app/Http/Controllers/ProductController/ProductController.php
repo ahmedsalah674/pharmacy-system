@@ -42,4 +42,14 @@ class ProductController extends Controller
       else
         return view('products.show',compact('product'));
     }
+    public function index()
+    {
+      if(\Auth::user()->role == 0)
+      {
+        $products = Item::orderBy('created_at','desc')->paginate(10);
+        return view('products.all',compact('products'));
+      }
+      else
+        return redirect()->route('home');
+    }
 }
