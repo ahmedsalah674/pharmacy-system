@@ -25,7 +25,7 @@
           <td>
             <form action="" method="post" delete="delete{{$product->id}}" class="delete{{$product->id}}">
               @csrf
-              <a href="" class="btn btn-primary btn-sm">Edit</a>
+            <a href="{!!route('product.edit',$product->id)!!}" class="btn btn-primary btn-sm">Edit</a>
               <a href="{!! route('product.show',$product->id) !!}" method="post" class="btn btn-success btn-sm">Show</a>
               <input type="hidden" name="id" value="{{ $product->id }}">
               <button type="button" class="btn-danger btn delete btn-sm">Delete</button>

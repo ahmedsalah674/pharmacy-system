@@ -36,11 +36,15 @@ class ProductController extends Controller
     }
     public function show($id)
     {
-      $product = Item::find($id);
-      if(!$product)
-        abort(404);
-      else
-        return view('products.show',compact('product'));
+      if(\Auth::user()->role==0)
+      {
+        $product = Item::find($id);
+        if(!$product)
+          abort(404);
+        else
+          return view('products.show',compact('product'));   
+      }
+      return redirect()->route('home');
     }
     public function index()
     {
@@ -51,5 +55,31 @@ class ProductController extends Controller
       }
       else
         return redirect()->route('home');
+    }
+    
+    public function edit($id)
+    {
+      if(\Auth::user()->role==0)
+      {
+        $product = Item::find($id);
+        if(!$product)
+          abort(404);
+        else
+          return view('products.edit',compact('product'));
+      }
+      else 
+        return redirect()->route('home');
+        
+    }
+
+    public function update(Request $request, $id)
+    {
+        $product = Item::find($id);
+        if(!$product)
+          abort(404);
+        $request = $request->except('__token');
+        $product->update($request);
+        
+        return redirect()->route('product.all')->with('message','Product has been updated');
     }
 }

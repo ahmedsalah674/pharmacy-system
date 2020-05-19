@@ -29,7 +29,8 @@ Route::get('/product/create','ProductController\ProductController@create')->name
 Route::post('/product/store','ProductController\ProductController@store')->name('product.store');
 Route::get('/product/show/{id}','ProductController\ProductController@show')->name('product.show');
 Route::get('/product/all','ProductController\ProductController@index')->name('product.all');
-
+Route::get('/product/edit/{id}','ProductController\ProductController@edit')->name('product.edit');
+Route::post('/product/update/{id}','ProductController\ProductController@update')->name('product.update');
 
 Route::get('/try', function () {
     return view('try');
