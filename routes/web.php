@@ -31,6 +31,7 @@ Route::get('/product/show/{id}','ProductController\ProductController@show')->nam
 Route::get('/product/all','ProductController\ProductController@index')->name('product.all');
 Route::get('/product/edit/{id}','ProductController\ProductController@edit')->name('product.edit');
 Route::post('/product/update/{id}','ProductController\ProductController@update')->name('product.update');
+Route::post('/product/delete','ProductController\ProductController@destroy')->name('product.delete');
 
 Route::get('/try', function () {
     return view('try');

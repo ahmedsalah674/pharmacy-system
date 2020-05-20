@@ -26,7 +26,7 @@
           <td>{{ $product->expiration_date }}</td>
           <td>{{ ($product->discount || $product->discount!=0)? $product->discount."%" : 'No Discount'}}</td>
           <td>
-            <form action="" method="post" delete="delete{{$product->id}}" class="delete{{$product->id}}">
+            <form action="{!! route('product.delete') !!}" method="post" delete="delete{{$product->id}}" class="delete{{$product->id}}">
               @csrf
             <a href="{!!route('product.edit',$product->id)!!}" class="btn btn-primary btn-sm">Edit</a>
               <a href="{!! route('product.show',$product->id) !!}" method="post" class="btn btn-success btn-sm">Show</a>

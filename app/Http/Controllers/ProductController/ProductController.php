@@ -82,4 +82,9 @@ class ProductController extends Controller
         
         return redirect()->route('product.all')->with('message','Product has been updated');
     }
+    public function destroy(Request $request)
+    {
+      Item::destroy($request->id);
+      return redirect()->back()->with(['message'=>"The Item's been deleted successfuly"]);
+    }
 }
