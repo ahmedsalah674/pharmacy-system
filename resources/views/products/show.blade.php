@@ -22,5 +22,5 @@
     </tr> --}}
   </tbody>
 </table>
-<a href="{!!!!}" class="btn btn-info col-md-6 ml-5">Edit</a>
+<a href="{!!route('product.edit',$product->id)!!}" class="btn btn-info col-md-6 ml-5">Edit</a>
 @endsection
