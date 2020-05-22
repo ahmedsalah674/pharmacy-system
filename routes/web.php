@@ -33,6 +33,12 @@ Route::get('/product/edit/{id}','ProductController\ProductController@edit')->nam
 Route::post('/product/update/{id}','ProductController\ProductController@update')->name('product.update');
 Route::post('/product/delete','ProductController\ProductController@destroy')->name('product.delete');
 
+//orders routes
+
+Route::get('/order/create','OrderController\OrderController@create')->name('order.create');
+Route::post('/order/store','OrderController\OrderController@store')->name('order.store');
+
+
 Route::get('/try', function () {
     return view('try');
 });

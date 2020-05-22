@@ -74,18 +74,47 @@ class AppServiceProvider extends ServiceProvider
                                     'text' => 'All Products',
                                     'url' => route('product.all'),
                                     'icon' => 'fas fa-list my-2 mr-1',
-                                    // 'icon_color' => 'blue',
                                   ],
                               [
                                 'text' => 'Add Products',
                                 'url' => route('product.create'),
                                 'icon' => 'fas fa-plus-circle my-2 mr-1',
-                                // 'icon_color' => 'blue',
                               ], 
+                            ]
+                          ],
+                          [
+                            'text' => 'Orders',
+                            'icon'    => 'fas fa-shopping-bag my-2 mr-1 fa-inverse',
+                            'submenu' => 
+                            [
+                              [
+                                'text' => 'Create Order',
+                                'url' => route('order.create'),
+                                'icon' => 'fas fa-cart-plus my-2 mr-1',
+                                ],
                             ]
                           ],
                     );//END PHARMASICST MENU
                 }//END IF USER PHARMASICST
+                if(\Auth::user()->role == 1)
+                {
+                    $event->menu->add(
+                    ['header'=>'CUSTOMER'],
+                          [
+                            'text' => 'Orders',
+                            'icon'    => 'fas fa-shopping-bag my-2 mr-1 fa-inverse',
+                            'submenu' => 
+                            [
+                              [
+                                'text' => 'Create Order',
+                                'url' => route('order.create'),
+                                'icon' => 'fas fa-cart-plus my-2 mr-1',
+                              ],
+                            ]
+                          ],
+                    );//END CUSTOMER MENU
+                }//END IF USER IS CUSTOMER
+
             }//END IF AUTH 
         });//END EVENTS->LISTEN
     }

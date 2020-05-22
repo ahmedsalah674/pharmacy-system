@@ -11,7 +11,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Delivery::create([
+      Delivery::truncate();   
+      Delivery::create([
             'name' => 'Delivery1',
             'salary' => '1000',
             'number_of_deliveries' => '10',
