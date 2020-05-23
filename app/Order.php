@@ -9,4 +9,8 @@ class Order extends Model
     protected $fillable = [
         'user_id','delivery_id','total_price','address',
       ];
+    public function delivery()
+    {
+        return $this->belongsTo('App\Delivery');
+    }
 }

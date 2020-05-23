@@ -10,5 +10,9 @@ class ItemOrder extends Model
         'item_id','order_id','quantity',
       ];
       protected $table = 'items_orders';
-  
+    
+    public function item()
+      {
+        return $this->belongsTo('App\Item');
+      } 
 }

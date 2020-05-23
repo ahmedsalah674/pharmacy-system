@@ -37,7 +37,7 @@ Route::post('/product/delete','ProductController\ProductController@destroy')->na
 
 Route::get('/order/create','OrderController\OrderController@create')->name('order.create');
 Route::post('/order/store','OrderController\OrderController@store')->name('order.store');
-
+Route::get('/order/show/{id}','OrderController\OrderController@show')->name('order.show');
 
 Route::get('/try', function () {
     return view('try');

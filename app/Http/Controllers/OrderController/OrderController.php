@@ -75,4 +75,14 @@ class OrderController extends Controller
 
   }
 
+  
+  public function show($id)
+  {
+    $order=Order::find($id);
+    $items_order=ItemOrder::where('order_id',$id)->get();
+    if(!$order )
+      return abort(404);
+
+    return view('orders.show',compact(['order','items_order']));
+  }
 }
