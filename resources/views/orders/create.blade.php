@@ -43,7 +43,7 @@
       <label>Adress</label>
       <input type="text" name="address" class="form-control" @if(isset($address) && Auth::user()->role > 0) value="{{$address->address}}" @endif>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary w-75 ml-5">Submit</button>
   </form>
 @endsection
 @section('css')

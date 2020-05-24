@@ -85,4 +85,120 @@ class OrderController extends Controller
 
     return view('orders.show',compact(['order','items_order']));
   }
+  public function edit($id)
+  {
+    $order = Order::find($id);
+    if($order && (\Auth::user()->role==0 || $order->user_id== \Auth::user()->id) )
+   {
+      $products = ItemOrder::where('order_id',$id)->get();
+      $deliveries = Delivery::all();
+      $items = Item::all();
+      return view('orders.edit',compact(['order','products','deliveries','items']));
+    }
+    elseif(!$order)
+     return abort(404);
+    else return redirect()->route('home')->with('info',"You can only edit your orders");
+  }
+  
+  public function update(Request $request,int $order_id)
+  { $order=Order::find($order_id);
+    if(\Auth::user()->role==0 && !$order->delivery_id){
+      $this->validate($request,[
+      'delivery_name' => 'required|max:500',
+    ]);}
+    if(!$order->address){
+      $this->validate($request,[
+      'address' => 'required|max:500',
+    ]);}
+    $itemsOldOrder= ItemOrder::where('order_id',$order_id)->get();
+    if($order)
+    {
+      $ids=$request->id;
+      if($ids)
+      {
+        $total_prices=0;
+        $quantities = $request->quantity;
+        $flags_index = array_fill(0,count($ids), 0);
+        $flags_count = array_fill(0,count($itemsOldOrder), 0);
+        foreach ($ids as $index => $value) 
+        {
+          for($count=0;$count < count($itemsOldOrder);$count++)
+          {
+            if($ids[$index] == $itemsOldOrder[$count]->item_id)
+              {
+                $flags_count[$count]=1;$flags_index[$index]=1; 
+                if($quantities[$index] > $itemsOldOrder[$count]->quantity )
+                  { 
+                    $dif=$quantities[$index] - $itemsOldOrder[$count]->quantity;
+                    if($itemsOldOrder[$count]->item->quantity < $dif)
+                      return redirect()->back()->with('error',"Sorry but we haven't this quantity of ".$itemsOldOrder[$count]->item->name ." we have only ".$itemsOldOrder[$count]->item->quantity );
+                    else
+                      { 
+                        $itemsOldOrder[$count]->item->quantity-=$dif;
+                        $itemsOldOrder[$count]->quantity=$quantities[$index];
+                        $itemsOldOrder[$count]->update();
+                        $itemsOldOrder[$count]->item->update();
+                      } 
+                  }
+                elseif($quantities[$index] < $itemsOldOrder[$count]->quantity )
+                  {
+                    $dif=$itemsOldOrder[$count]->quantity -$quantities[$index] ;
+                    $itemsOldOrder[$count]->item->quantity+=$dif;
+                    $itemsOldOrder[$count]->quantity=$quantities[$index];
+                    $itemsOldOrder[$count]->update();
+                    $itemsOldOrder[$count]->item->update(); 
+                  }//end else if
+                  
+              } //end for (count)
+          }//end foreach $ids
+        }
+        foreach($flags_count as $count=> $flag)
+          if(!$flag)
+          {
+             $itemsOldOrder[$count]->item->quantity+=$itemsOldOrder[$count]->quantity;
+             $itemsOldOrder[$count]->item->update();
+             ItemOrder::destroy($itemsOldOrder[$count]->id);  
+         }
+        foreach($flags_index as $index =>$flag )
+        { if(!$flag)
+        {               
+             ItemOrder::create([
+              'item_id' => $ids[$index],
+              'order_id' => $order_id,
+              'quantity' => $quantities[$index],
+            ]);
+            $new_item=Item::find($ids[$index]);
+            $new_item->quantity-=$quantities[$index];
+            $new_item->update();
+          }
+          $product=item::find($ids[$index]);
+          $total_prices+= ($product->price * $quantities[$index]) -(($product->price * $quantities[$index] * $product->discount/100)) ;
+         }
+         
+      }
+      else {
+        foreach($itemsOldOrder as $itemOldOrder)
+          {
+            $del_item=itemOrder::find($itemOldOrder->id);
+            $del_item->item->quantity+=$del_item->quantity;  
+            $del_item->item->update();
+            itemOrder::destroy($itemOldOrder->id);}  
+            Order::destroy($order_id);
+            return redirect()->route('home')->with("message","Order has been deleted");
+      }  
+      $Order=Order::find($order_id);
+      if($Order){
+      $Order->total_price=$total_prices;
+      if($request->address)
+        $Order->address=$request->address;
+      if($request->delivery_name)
+        $Order->delivery_id=$request->delivery_name;
+      $Order->update();
+      return redirect()->route('home')->with("message","Order has been edited");
+    }
+    }//end if
+  else
+    abort(404);    
+  }
+
 }
