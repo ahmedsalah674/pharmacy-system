@@ -200,5 +200,31 @@ class OrderController extends Controller
   else
     abort(404);    
   }
+  //change all var (id) to (request->id) after create all orders page
+  public function destroy($id)
+  {
+    $order=Order::find($id);
+      if(!$order )
+        return abort(404); 
+    if($order->user_id == \Auth::user()->id || \Auth::user()->role == 0)
+    {  
+        $items_order=ItemOrder::where('order_id',$id)->get();
+        foreach($items_order as $item_order)
+        {
+        if($order->state!="Delivered")
+        {
+          $item_order->item->quantity += $item_order->quantity;
+          $item_order->item->update();
+        }
+          ItemOrder::destroy($item_order->id);
+        }
+        Order::destroy($id);
+      return redirect()->route('home')->with('message','Order has been deleted');
+    }
+    else 
+      return redirect()->route('home')->with('error',"you can't delete this order");
+  }
+
+
 
 }

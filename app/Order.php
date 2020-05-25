@@ -13,4 +13,14 @@ class Order extends Model
     {
         return $this->belongsTo('App\Delivery');
     }
+    public function getStateAttribute($value)
+    {
+      if($value == 0){
+        return "In Progress";
+      }
+      if($value == 1){
+        return "On the Way";
+      }
+      else return "Delivered";
+    }
 }

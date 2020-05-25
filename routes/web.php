@@ -40,7 +40,8 @@ Route::post('/order/store','OrderController\OrderController@store')->name('order
 Route::get('/order/show/{id}','OrderController\OrderController@show')->name('order.show');
 Route::get('/order/edit/{id}','OrderController\OrderController@edit')->name('order.edit');
 Route::post('/order/upudate/{order_id}','OrderController\OrderController@update')->name('order.update');
-
+//change get method to post method after create all orders page
+Route::get('/order/delete/{id}','OrderController\OrderController@destroy')->name('order.delete');
 Route::get('/try', function () {
     return view('try');
 });
