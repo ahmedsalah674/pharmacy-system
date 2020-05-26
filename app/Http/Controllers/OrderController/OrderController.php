@@ -68,7 +68,7 @@ class OrderController extends Controller
                 $item->update();
             }
             
-            return redirect()->route('home');
+            return redirect()->route('order.all')->with('message',"your order added ");
         }
     else 
         return redirect()->back()->with("error","you must choose any item to create order");
@@ -194,13 +194,14 @@ class OrderController extends Controller
       if($request->delivery_name)
         $Order->delivery_id=$request->delivery_name;
       $Order->update();
-      return redirect()->route('home')->with("message","Order has been edited");
+      return redirect()->route('order.show',$Order)->with("message","Order has been edited");
     }
     }//end if
   else
     abort(404);    
   }
   //change all var (id) to (request->id) after create all orders page
+  //we don't need to change it -mohamed-
   public function destroy($id)
   {
     $order=Order::find($id);
@@ -219,12 +220,30 @@ class OrderController extends Controller
           ItemOrder::destroy($item_order->id);
         }
         Order::destroy($id);
-      return redirect()->route('home')->with('message','Order has been deleted');
+      return redirect()->route('order.all')->with('message','Order has been deleted');
     }
     else 
-      return redirect()->route('home')->with('error',"you can't delete this order");
+      return redirect()->route('order.all')->with('error',"you can't delete this order");
   }
 
-
+  public function index()
+  {
+    $orders = Order::all();
+    foreach($orders as $order) // just to avoid any mistake
+      {
+        $itemOrder = ItemOrder::where('order_id',$order->id)->get();
+        if(count($itemOrder)==0 )
+        {
+          Order::destroy($order->id);
+          $orders = Order::all(); // orders after update
+        }
+    }
+    $temp_array=array();
+    foreach($orders as $order)
+      if($order->state!="Delivered")
+        array_push($temp_array,$order);
+    $orders=$temp_array;
+    return view('orders.all',compact('orders'));
+  }
 
 }

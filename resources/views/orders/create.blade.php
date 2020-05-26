@@ -68,15 +68,15 @@
         if(!$("#row"+id).length){
           $("#items_container").append(`
             <tr id="row`+id+`">
-            <td>`+name+`</td>
-            <td>`+price+`</td>
-            <td>`+discount+`%</td>
-            <td><input type="number" name="quantity[]" value="1" class="col-md-6 form-control text-center mt-2 mx-auto" min="1"></td>
+            <td class="pt-5">`+name+`</td>
+            <td class="pt-5">`+price+`</td>
+            <td class="pt-5">`+discount+`%</td>
+            <td class="w-25"><input type="number" name="quantity[]" value="1" class=" form-control text-center mt-4" min="1"></td>
             <td><img src="`+image+`" alt="Product Image" height="100" width="100"></td>
             <td hidden><input type="hidden" name="id[]" value="`+id+`" min="1"></td>
             <td hidden><input type="hidden" name="price[]" value="`+price+`"></td>
             <td hidden><input type="hidden" name="discount[]" value="`+discount+`"></td>
-            <td><button type="button" class="btn btn-danger btn-sm rounded-pill ml-3" id="remove`+id+`"><i class="fas fa-times"></i></button></td>
+            <td><button type="button" class="btn btn-danger btn-sm rounded-pill ml-3 mt-4 " id="remove`+id+`"><i class="fas fa-times"></i></button></td>
             </tr>
             `);
         }

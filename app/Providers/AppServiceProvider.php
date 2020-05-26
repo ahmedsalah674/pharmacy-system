@@ -88,10 +88,16 @@ class AppServiceProvider extends ServiceProvider
                             'submenu' => 
                             [
                               [
+                                'text' => 'Active Orders',
+                                'url' => route('order.all'),
+                                'icon' => 'fas fa-list my-2 mr-1',
+                              ],
+                            
+                              [
                                 'text' => 'Create Order',
                                 'url' => route('order.create'),
                                 'icon' => 'fas fa-cart-plus my-2 mr-1',
-                                ],
+                              ],
                             ]
                           ],
                     );//END PHARMASICST MENU

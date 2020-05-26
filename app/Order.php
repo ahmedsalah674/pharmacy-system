@@ -13,6 +13,10 @@ class Order extends Model
     {
         return $this->belongsTo('App\Delivery');
     }
+    public function user()
+    {
+      return $this->belongsTo('App\User');
+    }
     public function getStateAttribute($value)
     {
       if($value == 0){
