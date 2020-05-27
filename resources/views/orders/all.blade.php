@@ -5,6 +5,8 @@
 @endsection
 @section('content')
 @include('error')
+<input class="form-control mb-4 " id="ordersTable" type="text"
+      placeholder="Type something to search list items">
   <table class="table table-haver">
     <thead>
       <th>#</th>
@@ -43,6 +45,16 @@
   </table>
 @endsection
 @section('js')
+<script>
+  $(document).ready(function(){
+    $("#ordersTable").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#ordersTable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+  </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 <script >
   $(document).on('click', '.delete',function(e){
