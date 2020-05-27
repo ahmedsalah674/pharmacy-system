@@ -4,6 +4,7 @@
   <h1> Edit Order</h1>
 @endsection
 @section('content')
+@include('error')
   <form class="col-md-6" action="{!! route('order.update',$order->id) !!}"  method="post">
     @csrf
     <div class="form-group">
@@ -52,7 +53,7 @@
     @endif
     <div class="form-group">
       <label>Adress</label>
-      <input type="text" name="address" class="form-control" @if(isset($address) && Auth::user()->role > 0) value="{{$address->address}}" @endif>
+      <input type="text" name="address" class="form-control"value="{{$order->address}}">
     </div>
     
     <button type="submit" class="btn btn-primary mb-5 ml-5 w-75 " id="submit" >Submit</button>

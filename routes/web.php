@@ -42,6 +42,8 @@ Route::get('/order/edit/{id}','OrderController\OrderController@edit')->name('ord
 Route::post('/order/upudate/{order_id}','OrderController\OrderController@update')->name('order.update');
 Route::post('/order/delete/{id}','OrderController\OrderController@destroy')->name('order.delete');
 Route::get('/order/all','OrderController\OrderController@index')->name('order.all');
+Route::post('/order/deliver/{id}','OrderController\OrderController@deliver')->name('order.deliver');
+Route::post('/order/finish/{id}','OrderController\OrderController@finish')->name('order.finish');
 Route::get('/try', function () {
     return view('try');
 });

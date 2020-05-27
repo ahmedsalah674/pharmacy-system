@@ -25,16 +25,22 @@
           <td>{{ $order->state }}</td>
           <td>{{ $order->created_at }}</td>
           <td>
-            <form action="{!! route('order.delete',$order->id) !!}" method="post" delete="delete{{$order->id}}" class="delete{{$order->id}}">
-              @csrf
-              <a href="{!! route('order.show',$order->id) !!}" method="post" class="btn btn-success btn-sm">Show</a>
+            <a href="{!! route('order.show',$order->id) !!}" method="post" class="btn btn-success btn-sm">Show</a>
               <a href="{!!route('order.edit',$order->id)!!}" class="btn btn-primary btn-sm">Edit</a>
               @if ($order->state == "In Progress")
-                <a href="" class="btn btn-warning btn-sm">Deliver</a>
+              <form action="{!!route('order.deliver',$order->id)!!}" method="POST" class="d-inline">
+                @csrf
+                <button class="btn btn-warning btn-sm text-white">Deliver</button>
+              </form>
               @endif
               @if ($order->state == "On the Way")
-                <a href=""  class="btn btn-warning btn-sm">Finish</a>
+              <form action="{!! route('order.finish',$order->id) !!}" method="POST" class="d-inline">
+                @csrf
+                <button  class="btn btn-warning btn-sm text-white">Finish</button>
+              </form>
               @endif
+            <form action="{!! route('order.delete',$order->id) !!}" method="post" delete="delete{{$order->id}}" class="delete{{$order->id}} d-inline">
+              @csrf
               <input type="hidden" name="id" value="{{ $order->id }}">
               <button type="button" class="btn-danger btn delete btn-sm">Delete</button>
             </form>

@@ -246,4 +246,35 @@ class OrderController extends Controller
     return view('orders.all',compact('orders'));
   }
 
+  public function deliver($id)
+  {
+    $order = Order::find($id);
+    if($order)
+    {
+      if(!$order->delivery_id || !$order->address)
+        return redirect()->route('order.edit',$id)->with('info','the order must have address and delivery first');
+      if($order->state=="In Progress")
+        {
+          $order->state=1;
+          $order->update();
+        }
+      return redirect()->back()->with('message','Please Press Finsh When Order Deliver');
+    }
+    else
+      return abort(404);
+  }
+
+  public function finish($id)
+  {
+    $order = Order::find($id);
+    if($order->state=="On the Way")
+      {
+        $order->state=2;
+        $order->update();
+      }
+    else
+      return abort(404);
+    return redirect()->back();  
+  }
+
 }
