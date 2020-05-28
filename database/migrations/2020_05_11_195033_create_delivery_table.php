@@ -17,7 +17,6 @@ class CreateDeliveryTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('salary');
-            $table->integer('number_of_deliveries');
             $table->string('image')->nullable();
             $table->timestamps();
         });

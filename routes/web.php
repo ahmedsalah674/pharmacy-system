@@ -24,7 +24,6 @@ Route::get('/profile/password/change','ProfileController\ProfileController@chang
 Route::put('/profile/password/change','ProfileController\ProfileController@change')->name('profile.change');
 
 //product (item) routes
-
 Route::get('/product/create','ProductController\ProductController@create')->name('product.create');
 Route::post('/product/store','ProductController\ProductController@store')->name('product.store');
 Route::get('/product/show/{id}','ProductController\ProductController@show')->name('product.show');
@@ -34,7 +33,6 @@ Route::post('/product/update/{id}','ProductController\ProductController@update')
 Route::post('/product/delete','ProductController\ProductController@destroy')->name('product.delete');
 
 //orders routes
-
 Route::get('/order/create','OrderController\OrderController@create')->name('order.create');
 Route::post('/order/store','OrderController\OrderController@store')->name('order.store');
 Route::get('/order/show/{id}','OrderController\OrderController@show')->name('order.show');
@@ -44,7 +42,12 @@ Route::post('/order/delete/{id}','OrderController\OrderController@destroy')->nam
 Route::get('/order/all','OrderController\OrderController@index')->name('order.all');
 Route::post('/order/deliver/{id}','OrderController\OrderController@deliver')->name('order.deliver');
 Route::post('/order/finish/{id}','OrderController\OrderController@finish')->name('order.finish');
+
+//delivery routes
 Route::get('/delivery/all','DeliveryController\DeliveryController@index')->name('delivery.all');
+Route::get('/delivery/create','DeliveryController\DeliveryController@create')->name('delivery.create');
+Route::post('/delivery/store','DeliveryController\DeliveryController@store')->name('delivery.store');
+  
 Route::get('/try', function () {
     return view('try');
 });

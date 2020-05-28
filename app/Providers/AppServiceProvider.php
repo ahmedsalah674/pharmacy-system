@@ -110,6 +110,12 @@ class AppServiceProvider extends ServiceProvider
                                 'url' => route('delivery.all'),
                                 'icon'    => 'fas fa-fw fa-users my-2 mr-1',
                               ],
+                              [
+                                'text' => 'Add Delivery',
+                                'url' => route('delivery.create'),
+                                'icon' => 'fas fa-plus-circle my-2 mr-1 ',
+                                // 'icon_color' => 'blue',
+                              ],
                             ]
                           ],
                     );//END PHARMASICST MENU

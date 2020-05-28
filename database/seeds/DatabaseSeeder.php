@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
       Delivery::create([
             'name' => 'Delivery1',
             'salary' => '1000',
-            'number_of_deliveries' => '10',
           ]);
             $this->call(UsersTableSeeder::class);
     }
