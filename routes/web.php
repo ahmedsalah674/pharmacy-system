@@ -44,6 +44,7 @@ Route::post('/order/delete/{id}','OrderController\OrderController@destroy')->nam
 Route::get('/order/all','OrderController\OrderController@index')->name('order.all');
 Route::post('/order/deliver/{id}','OrderController\OrderController@deliver')->name('order.deliver');
 Route::post('/order/finish/{id}','OrderController\OrderController@finish')->name('order.finish');
+Route::get('/delivery/all','DeliveryController\DeliveryController@index')->name('delivery.all');
 Route::get('/try', function () {
     return view('try');
 });

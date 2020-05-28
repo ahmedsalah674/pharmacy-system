@@ -100,6 +100,18 @@ class AppServiceProvider extends ServiceProvider
                               ],
                             ]
                           ],
+                          [
+                            'text' => 'Deliveries',
+                                'icon' => 'fas fa-truck my-2 mr-1 fa-inverse',
+                            'submenu' => 
+                            [
+                              [
+                                'text' => 'All Delivery',
+                                'url' => route('delivery.all'),
+                                'icon'    => 'fas fa-fw fa-users my-2 mr-1',
+                              ],
+                            ]
+                          ],
                     );//END PHARMASICST MENU
                 }//END IF USER PHARMASICST
                 if(\Auth::user()->role == 1)
