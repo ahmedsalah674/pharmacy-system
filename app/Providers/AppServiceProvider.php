@@ -92,7 +92,11 @@ class AppServiceProvider extends ServiceProvider
                                 'url' => route('order.all'),
                                 'icon' => 'fas fa-list my-2 mr-1',
                               ],
-                            
+                              [
+                                'text' => 'Orders History',
+                                'url' => route('order.history'),
+                                'icon' => 'fas fa-history my-2 mr-1 ',
+                              ],
                               [
                                 'text' => 'Create Order',
                                 'url' => route('order.create'),
@@ -129,6 +133,16 @@ class AppServiceProvider extends ServiceProvider
                             'icon'    => 'fas fa-shopping-bag my-2 mr-1 fa-inverse',
                             'submenu' => 
                             [
+                              [
+                                'text' => 'My Orders',
+                                'url' => route('order.myOrders'),
+                                'icon' => 'fas fa-bars my-2 mr-1',
+                              ],
+                              [
+                                'text' => 'Orders History',
+                                'url' => route('order.history'),
+                                'icon' => 'fas fa-history my-2 mr-1',
+                              ],
                               [
                                 'text' => 'Create Order',
                                 'url' => route('order.create'),

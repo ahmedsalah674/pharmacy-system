@@ -277,4 +277,30 @@ class OrderController extends Controller
     return redirect()->back();  
   }
 
+  public function myOrders()
+  {
+    if(\Auth::user()->role==1)
+    {
+      $orders = Order::where('user_id',\Auth::user()->id)->get();
+      $myOrders=array();
+      foreach($orders as $order)
+        if($order->state!="Delivered")
+          array_push($myOrders,$order);
+      return view('orders.myOrders',compact('myOrders'));
+    }
+    else
+      return redirect()->route('home');
+  }
+  public function history()
+  {
+    if(\Auth::user()->role==1)
+      $orders = Order::where('user_id',\Auth::user()->id)->get();
+    else  
+      $orders = Order::all();
+    $orders_history=array();
+    foreach($orders as $order)
+      if($order->state=="Delivered")
+        array_push($orders_history,$order);
+    return view('orders.history',compact('orders_history'));
+  }
 }
