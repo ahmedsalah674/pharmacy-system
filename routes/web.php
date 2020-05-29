@@ -47,7 +47,10 @@ Route::post('/order/finish/{id}','OrderController\OrderController@finish')->name
 Route::get('/delivery/all','DeliveryController\DeliveryController@index')->name('delivery.all');
 Route::get('/delivery/create','DeliveryController\DeliveryController@create')->name('delivery.create');
 Route::post('/delivery/store','DeliveryController\DeliveryController@store')->name('delivery.store');
-  
+Route::get('/delivery/show/{id}','DeliveryController\DeliveryController@show')->name('delivery.show'); 
+Route::get('/delivery/edit/{id}','DeliveryController\DeliveryController@edit')->name('delivery.edit');
+Route::put('/delivery/update','DeliveryController\DeliveryController@update')->name('delivery.update');
+
 Route::get('/try', function () {
     return view('try');
 });

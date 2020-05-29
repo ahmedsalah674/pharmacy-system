@@ -40,4 +40,54 @@ class DeliveryController extends Controller
         ]);
         return redirect()->route('delivery.all')->with('message',"The Delivery has been added successfuly");
     }
+    public function show($id)
+    {
+        if(\Auth::user()->role==1)
+            return redirect()->route('home')->with('error',"This profile does Not belong to you");
+      $delivery= Delivery::find($id);
+      if(!$delivery)
+         return redirect()->route('home')->with('error',"Delivery not found");
+      
+          return view('delivery.show',compact('delivery'));
+    }
+    public function edit($id)
+    { 
+      if(\Auth::user()->role != 0 )
+        return redircet()->route('home')->with('error','You can not access this page');   
+      $delivery = Delivery::find($id);
+      if(!$delivery)
+        abort(404);
+      else
+        return view('delivery.edit',compact('delivery'));
+    }
+
+    public function update(Request $request)
+    {
+      if($request->image)
+      {
+         $this->validate($request,[
+        'name' => ['required', 'string', 'max:255'],
+        'salary'=>['required', 'numeric', 'integer','min:1000'],
+        'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+      ]);
+        $delivery=Delivery::find($request->id);
+        $request = $request->except('__token');
+        $imageName = time().'.'.request()->image->getClientOriginalExtension();
+        request()->image->move(public_path('images/delivery/'), $imageName);
+        $delivery->update($request);
+        $delivery->image=$imageName;        
+        $delivery->update();
+    }
+    else {
+      $this->validate($request,[
+        'name' => ['required', 'string', 'max:255'],
+        'salary'=>['required', 'numeric', 'min:1000'],
+      ]);
+     $delivery=delivery::find($request->id);
+     $request = $request->except('__token');
+     $delivery->update($request);
+    }
+    
+     return redirect()->route('delivery.show',$delivery->id)->with('message','Delivery data has been updated successfully');
+    }
 }

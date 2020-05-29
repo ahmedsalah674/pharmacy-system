@@ -24,8 +24,8 @@
                 <td>
                   <form action=""  method="post" delete="delete{{$delivery->id}}" class="delete{{$delivery->id}} text-center">
                     @csrf
-                    <a href="" method="post" class="btn btn-success btn-sm">Show</a>
-                    <a href="" class="btn btn-primary btn-sm">Edit</a>
+                    <a href="{!!route('delivery.show',$delivery->id)!!}" method="post" class="btn btn-success btn-sm">Show</a>
+                    <a href="{!!route('delivery.edit',$delivery->id)!!}" class="btn btn-primary btn-sm">Edit</a>
                     <input type="hidden" name="id" value="{{ $delivery->id }}">
                     <button type="button" class="btn-danger btn delete btn-sm">Delete</button>
                   </form>
