@@ -118,9 +118,13 @@ class AppServiceProvider extends ServiceProvider
                                 'text' => 'Add Delivery',
                                 'url' => route('delivery.create'),
                                 'icon' => 'fas fa-plus-circle my-2 mr-1 ',
-                                // 'icon_color' => 'blue',
                               ],
                             ]
+                          ],
+                          [
+                            'text' => 'Rates',
+                            'url' => route('rate.index'),
+                            'icon' => 'far fa-smile-beam fa-lg my-2 mr-1 fa-inverse',
                           ],
                     );//END PHARMASICST MENU
                 }//END IF USER PHARMASICST
@@ -128,15 +132,10 @@ class AppServiceProvider extends ServiceProvider
                 {
                     $event->menu->add(
                     ['header'=>'CUSTOMER'],
-                          [
-                            'text' => 'Orders',
-                            'icon'    => 'fas fa-shopping-bag my-2 mr-1 fa-inverse',
-                            'submenu' => 
-                            [
                               [
                                 'text' => 'My Orders',
                                 'url' => route('order.myOrders'),
-                                'icon' => 'fas fa-bars my-2 mr-1',
+                                'icon' => 'fas fa-shopping-bag my-2 mr-1',
                               ],
                               [
                                 'text' => 'Orders History',
@@ -148,8 +147,6 @@ class AppServiceProvider extends ServiceProvider
                                 'url' => route('order.create'),
                                 'icon' => 'fas fa-cart-plus my-2 mr-1',
                               ],
-                            ]
-                          ],
                     );//END CUSTOMER MENU
                 }//END IF USER IS CUSTOMER
 

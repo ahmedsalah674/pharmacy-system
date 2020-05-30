@@ -53,6 +53,10 @@ Route::get('/delivery/show/{id}','DeliveryController\DeliveryController@show')->
 Route::get('/delivery/edit/{id}','DeliveryController\DeliveryController@edit')->name('delivery.edit');
 Route::put('/delivery/update','DeliveryController\DeliveryController@update')->name('delivery.update');
 
+//rate routes
+Route::get('/system/rate','RateController\RateController@index')->name('rate.index');
+Route::post('/system/rate/store','RateController\RateController@store')->name('rate.store');
+
 Route::get('/try', function () {
     return view('try');
 });
