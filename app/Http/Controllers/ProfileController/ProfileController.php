@@ -77,7 +77,7 @@ class ProfileController extends Controller
           'new_password' => 'required|min:8',
           'confirm_password' =>'required|min:8|same:new_password',
           ]);
-      $user->update(['password'=>Hash::make($request->newpassword)]);
+       $user->update(['password'=>Hash::make($request->new_password)]);
       return redirect()->route('home')->with('message','Your Password Updated');
       }
       else

@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Delivery;
 class DeliveryController extends Controller
 {
+  public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         if(\Auth::user()->role==0)
@@ -89,5 +93,10 @@ class DeliveryController extends Controller
     }
     
      return redirect()->route('delivery.show',$delivery->id)->with('message','Delivery data has been updated successfully');
+    }
+    public function destroy(Request $request)
+    {
+      Delivery::destroy($request->id);
+      return redirect()->back()->with('message',"Delivery been deleted successfuly");
     }
 }

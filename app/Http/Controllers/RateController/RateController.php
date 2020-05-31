@@ -8,6 +8,10 @@ use App\SystemRate;
 use App\UserRateActive;
 class RateController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         if(\Auth::user()->role==0)

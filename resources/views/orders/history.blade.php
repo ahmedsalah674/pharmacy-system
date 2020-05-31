@@ -38,6 +38,7 @@
   </table>
 @endsection
 @section('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 <script>
 $(document).ready(function(){
   $("#history_ordersTable").on("keyup", function() {

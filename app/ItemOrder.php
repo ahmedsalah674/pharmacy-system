@@ -11,8 +11,12 @@ class ItemOrder extends Model
       ];
       protected $table = 'items_orders';
     
-    public function item()
+      public function item()
       {
         return $this->belongsTo('App\Item');
+      } 
+      public function order()
+      {
+        return $this->belongsTo('App\Order');
       } 
 }

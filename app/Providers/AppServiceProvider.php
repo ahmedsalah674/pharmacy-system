@@ -126,6 +126,11 @@ class AppServiceProvider extends ServiceProvider
                             'url' => route('rate.index'),
                             'icon' => 'far fa-smile-beam fa-lg my-2 mr-1 fa-inverse',
                           ],
+                          [
+                            'text' => 'Report',
+                            'icon' => 'far fa-file-alt fa-lg my-2 mr-1 fa-inverse',
+                            'url' => route('order.report'),
+                          ],
                     );//END PHARMASICST MENU
                 }//END IF USER PHARMASICST
                 if(\Auth::user()->role == 1)

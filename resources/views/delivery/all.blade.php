@@ -22,7 +22,7 @@
                 <td>{{ $delivery->name }}</td>
                 <td><b> {{ $delivery->salary }} EGP</b></td>
                 <td>
-                  <form action=""  method="post" delete="delete{{$delivery->id}}" class="delete{{$delivery->id}} text-center">
+                  <form action="{!!route('delivery.delete')!!}"  method="post" delete="delete{{$delivery->id}}" class="delete{{$delivery->id}} text-center">
                     @csrf
                     <a href="{!!route('delivery.show',$delivery->id)!!}" method="post" class="btn btn-success btn-sm">Show</a>
                     <a href="{!!route('delivery.edit',$delivery->id)!!}" class="btn btn-primary btn-sm">Edit</a>

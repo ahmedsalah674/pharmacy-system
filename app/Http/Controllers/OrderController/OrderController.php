@@ -8,9 +8,15 @@ use App\Item;
 use App\Order;
 use App\Delivery;
 use App\ItemOrder;
+use App\Report;
+use App\UserRateActive;
 
 class OrderController extends Controller
 {
+  public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function create()
   {
     $products = Item::where('quantity','>','0')->get();
@@ -67,8 +73,10 @@ class OrderController extends Controller
                 $item->quantity=$item->quantity-$quantities[$index];
                 $item->update();
             }
-            
-            return redirect()->route('order.all')->with('message',"your order added ");
+            if(\Auth::user()->role==0)
+             return redirect()->route('order.all')->with('message',"your order added ");
+            else 
+            return redirect()->route('order.myOrders')->with('message',"your order added ");
         }
     else 
         return redirect()->back()->with("error","you must choose any item to create order");
@@ -266,11 +274,39 @@ class OrderController extends Controller
 
   public function finish($id)
   {
+    $now=\Carbon\Carbon::now();
     $order = Order::find($id);
+    $items =ItemOrder::where('order_id',$order->id)->get();
     if($order->state=="On the Way")
       {
         $order->state=2;
         $order->update();
+        if(count($items)>0)
+        {
+          foreach($items as $item)
+          {
+            $report=Report::where('item_id',$item->item_id)->first();
+            if($report && $report->created_at->diffInDays($now) <= 7)
+              {
+                $report->quantity_sells+=$item->quantity;
+                $report->update();
+              }
+              elseif($report && $report->created_at->diffInDays($now) > 7)
+              {
+                Report::create([
+                  'item_id'=>$item->item_id,
+                  'quantity_imports'=>$item->item->quantity + $item->quantity ,
+                  'quantity_sells'=>$item->quantity,
+                  'lastWeek_quantity_sells'=>$report->quantity_sells,
+                  'lastWeek_quantity_imports'=>$report->quantity_imports,
+                  ]);
+                $report->delete();
+              }
+          }
+        }
+        $rate=UserRateActive::find(\Auth::user()->id);
+        $rate->rate_active=1;
+        $rate->update();
       }
     else
       return abort(404);
@@ -303,4 +339,18 @@ class OrderController extends Controller
         array_push($orders_history,$order);
     return view('orders.history',compact('orders_history'));
   }
+  public function report()
+  {
+    $now=\Carbon\Carbon::now();
+    $reports=Report::all();
+    $temp=array();
+    foreach($reports as $report)
+      {
+        if($report->created_at->diffInDays($now) <= 7)
+              array_push($temp,$report);
+      } 
+     $reports=$temp;
+    return view('orders.report',compact('reports'));
+  }
+
 }

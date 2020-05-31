@@ -13,9 +13,9 @@ class UsersTableSeeder extends Seeder
     {
         User::truncate();
         User::insert([
-          'name' => 'admin',
-          'email' => 'admin@admin.com',
-          'password' => Hash::make('admin123'),
+          'name' => 'pharmcist',
+          'email' => 'pharmcist@pharmcist.com',
+          'password' => Hash::make('pharmcist'),
           'role' => '0',
         ]);
     }

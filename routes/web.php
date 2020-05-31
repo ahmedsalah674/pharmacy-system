@@ -44,7 +44,7 @@ Route::post('/order/deliver/{id}','OrderController\OrderController@deliver')->na
 Route::post('/order/finish/{id}','OrderController\OrderController@finish')->name('order.finish');
 Route::get('/order/myOrders','OrderController\OrderController@myOrders')->name('order.myOrders');
 Route::get('/order/history','OrderController\OrderController@history')->name('order.history');
-
+Route::get('/order/report','OrderController\OrderController@report')->name('order.report');
 //delivery routes
 Route::get('/delivery/all','DeliveryController\DeliveryController@index')->name('delivery.all');
 Route::get('/delivery/create','DeliveryController\DeliveryController@create')->name('delivery.create');
@@ -52,14 +52,10 @@ Route::post('/delivery/store','DeliveryController\DeliveryController@store')->na
 Route::get('/delivery/show/{id}','DeliveryController\DeliveryController@show')->name('delivery.show'); 
 Route::get('/delivery/edit/{id}','DeliveryController\DeliveryController@edit')->name('delivery.edit');
 Route::put('/delivery/update','DeliveryController\DeliveryController@update')->name('delivery.update');
-
+Route::post('/delivery/delete','DeliveryController\DeliveryController@destroy')->name('delivery.delete');
 //rate routes
 Route::get('/system/rate','RateController\RateController@index')->name('rate.index');
 Route::post('/system/rate/store','RateController\RateController@store')->name('rate.store');
-
-Route::get('/try', function () {
-    return view('try');
-});
 
 
 
