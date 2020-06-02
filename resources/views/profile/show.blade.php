@@ -6,7 +6,7 @@
 @section('content')
 <table class="table " style="margin-bottom:5px">
   <tbody>
-    @if(!$user->image == asset('images/users/') )
+    @if(!$user->image != asset('images/users/') )
     <i class="fas fa-image mr-1 text-info "></i>
     <label>User Image:</label>
     <br>  
