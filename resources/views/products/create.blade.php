@@ -17,7 +17,7 @@
       </div>
       <div class="form-group">
         <label><i class="fas fa-calendar-check text-info"></i> Expiration Date</label>
-        <input type="text" name="expiration" id="datepicker" class="datepicker form-control" value="{{ old('expiration') }}">
+      <input type="date" name="expiration" id="datepicker" class="datepicker form-control" value="{{ old('expiration') }}" min="{{Carbon\Carbon::now()->format('Y-m-d')}}">
       </div>
       <div class="form-group">
         <label><i class="fas fa-cubes text-info"></i> Quantity</label>
@@ -39,6 +39,10 @@
 
 @section('css')
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
+  <style>
+    [type="date"]::-webkit-calendar-picker-indicator {
+      display: none;}
+  </style>
 @endsection
 @section('js')
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
